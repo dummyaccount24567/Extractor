@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model GermplasmEntry {
+  id          Int      @id @default(autoincrement())
+  serialNo    Int
+  name        String   @unique
+  genome      String?
+  grinId      String?
+  species     String?
+  type        String?
+  collection  String?
+  accession   String?
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model RequestLog {
+  id            Int      @id @default(autoincrement())
+  entryId       Int
+  entryName     String
+  requesterName String
+  phone         String
+  department    String
+  purpose       String
+  quantity      Int
+  submittedAt   DateTime @default(now())
+}
+
+model AdminSettings {
+  id            Int      @id @default(1)
+  portalTitle   String   @default("Germplasm Request Portal")
+  smtpHost      String?
+  smtpPort      Int?
+  smtpUser      String?
+  smtpPass      String?
+  adminEmail    String?
+  adminPassword String?
+  updatedAt     DateTime @updatedAt
+}
