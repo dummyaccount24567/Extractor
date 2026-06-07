@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Germplasm Request Portal",
-  description: "Search germplasm entries and submit research requests.",
+  title: "Genom Data",
+  description: "Professional germplasm trait search.",
 };
 
 export default function RootLayout({

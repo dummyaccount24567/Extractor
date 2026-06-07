@@ -59,10 +59,12 @@ export function RequestModal({ entry, isOpen, onClose, onSuccess }: RequestModal
     () =>
       entry
         ? [
-            { label: "Name", value: entry.name },
+            { label: "Name/ID", value: entry.name },
             { label: "Species", value: entry.species || "-" },
             { label: "Type", value: entry.type || "-" },
-            { label: "Traits", value: entry.description || "-" },
+            { label: "Key Descriptors", value: entry.description || "-" },
+            { label: "Parentage", value: entry.accession || "-" },
+            { label: "Host Institution", value: entry.collection || "-" },
           ]
         : [],
     [entry],

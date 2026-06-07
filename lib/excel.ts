@@ -14,16 +14,36 @@ type ParsedEntry = {
 
 const headerMap: Record<string, keyof ParsedEntry> = {
   "S.No": "serialNo",
+  "Name/ID": "name",
   Name: "name",
   Genome: "genome",
   "Grin ID": "grinId",
   Species: "species",
   Type: "type",
+  "Host Institution": "collection",
   Collection: "collection",
+  Parentage: "accession",
   Accession: "accession",
+  "Key Descriptors": "description",
   Description: "description",
   Traits: "description",
 };
+
+function resolveFieldForHeader(header: string): keyof ParsedEntry | undefined {
+  const directMatch = headerMap[header];
+
+  if (directMatch) {
+    return directMatch;
+  }
+
+  const normalizedHeader = header.trim().toLowerCase();
+
+  if (normalizedHeader.includes("description") || normalizedHeader.includes("trait")) {
+    return "description";
+  }
+
+  return undefined;
+}
 
 export function parseExcelBuffer(buffer: Buffer) {
   const workbook = XLSX.read(buffer, { type: "buffer" });
@@ -51,8 +71,12 @@ export function parseExcelBuffer(buffer: Buffer) {
 function mapRow(row: Record<string, unknown>) {
   const entry = {} as ParsedEntry;
 
-  for (const [header, field] of Object.entries(headerMap)) {
-    const rawValue = row[header];
+  for (const [header, rawValue] of Object.entries(row)) {
+    const field = resolveFieldForHeader(header);
+
+    if (!field) {
+      continue;
+    }
 
     if (rawValue === undefined || rawValue === null || rawValue === "") {
       continue;

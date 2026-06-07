@@ -105,11 +105,11 @@ export function AdminDashboardClient({
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-[2rem] border border-emerald-200/80 bg-white/95 p-6 shadow-[0_20px_60px_-40px_rgba(22,101,52,0.25)]">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">Portal & Email Settings</h2>
-              <p className="mt-1 text-sm text-slate-600">
+              <h2 className="text-xl font-semibold text-emerald-950">Portal & Email Settings</h2>
+              <p className="mt-1 text-sm text-emerald-900/70">
                 Configure the portal title, admin password, and the SMTP account used for request notifications.
               </p>
             </div>
@@ -117,7 +117,7 @@ export function AdminDashboardClient({
               type="button"
               onClick={handleTestEmail}
               disabled={isTesting}
-              className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-2xl border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-800 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isTesting ? "Sending..." : "Send Test Email"}
             </button>
@@ -189,7 +189,7 @@ export function AdminDashboardClient({
               <button
                 type="submit"
                 disabled={isSaving}
-                className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+                className="rounded-2xl bg-emerald-700 px-5 py-3 text-sm font-medium text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-300"
               >
                 {isSaving ? "Saving..." : "Save Settings"}
               </button>
@@ -198,42 +198,48 @@ export function AdminDashboardClient({
         </section>
 
         <div className="space-y-6">
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">Quick Actions</h2>
+          <section className="rounded-[2rem] border border-emerald-200/80 bg-white/95 p-6 shadow-[0_20px_60px_-40px_rgba(22,101,52,0.25)]">
+            <h2 className="text-xl font-semibold text-emerald-950">Quick Actions</h2>
             <div className="mt-4 grid gap-3">
               <Link
+                href="/admin/manage"
+                className="rounded-2xl border border-emerald-100 bg-white px-4 py-4 text-sm font-medium text-emerald-900 transition hover:bg-emerald-50"
+              >
+                Add or Delete Records
+              </Link>
+              <Link
                 href="/admin/upload"
-                className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                className="rounded-2xl border border-emerald-100 bg-emerald-50/60 px-4 py-4 text-sm font-medium text-emerald-900 transition hover:bg-emerald-100/60"
               >
                 Open Excel Import
               </Link>
               <Link
                 href="/admin/requests"
-                className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                className="rounded-2xl border border-emerald-100 bg-white px-4 py-4 text-sm font-medium text-emerald-900 transition hover:bg-emerald-50"
               >
                 Review Request Logs
               </Link>
             </div>
           </section>
 
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <section className="rounded-[2rem] border border-emerald-200/80 bg-white/95 p-6 shadow-[0_20px_60px_-40px_rgba(22,101,52,0.25)]">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-slate-900">Recent Requests</h2>
-              <Link href="/admin/requests" className="text-sm font-medium text-slate-700 underline-offset-4 hover:underline">
+              <h2 className="text-xl font-semibold text-emerald-950">Recent Requests</h2>
+              <Link href="/admin/requests" className="text-sm font-medium text-emerald-800 underline-offset-4 hover:underline">
                 View all
               </Link>
             </div>
             <div className="mt-4 space-y-3">
               {recentRequests.length === 0 ? (
-                <p className="text-sm text-slate-500">No requests have been submitted yet.</p>
+                <p className="text-sm text-emerald-900/60">No requests have been submitted yet.</p>
               ) : (
                 recentRequests.map((request) => (
-                  <div key={request.id} className="rounded-2xl border border-slate-200 p-4">
-                    <p className="text-sm font-semibold text-slate-900">{request.entryName}</p>
-                    <p className="mt-1 text-sm text-slate-600">
-                      {request.requesterName} - {request.department}
+                  <div key={request.id} className="rounded-2xl border border-emerald-100 bg-emerald-50/35 p-4">
+                    <p className="text-sm font-semibold text-emerald-950">{request.entryName}</p>
+                    <p className="mt-1 text-sm text-emerald-900/70">
+                      {request.requesterName} | {request.department}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-emerald-800/60">
                       {new Date(request.submittedAt).toLocaleString()}
                     </p>
                   </div>
@@ -249,9 +255,9 @@ export function AdminDashboardClient({
 
 function Card({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
+    <div className="rounded-[1.75rem] border border-emerald-200/80 bg-white/95 p-5 shadow-[0_18px_56px_-40px_rgba(22,101,52,0.35)]">
+      <p className="text-sm uppercase tracking-[0.18em] text-emerald-700">{label}</p>
+      <p className="mt-2 text-3xl font-semibold text-emerald-950">{value}</p>
     </div>
   );
 }
@@ -269,12 +275,12 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-medium text-slate-700">{label}</span>
+      <span className="mb-2 block text-sm font-medium text-emerald-900">{label}</span>
       <input
         type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-900 transition focus:border-slate-500"
+        className="w-full rounded-2xl border border-emerald-200 px-4 py-3 text-sm text-emerald-950 transition focus:border-emerald-500"
       />
     </label>
   );

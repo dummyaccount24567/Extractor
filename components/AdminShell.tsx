@@ -13,6 +13,7 @@ type AdminShellProps = {
 const links = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/upload", label: "Excel Import" },
+  { href: "/admin/manage", label: "Manage Data" },
   { href: "/admin/requests", label: "Request Logs" },
 ];
 
@@ -29,28 +30,28 @@ export function AdminShell({ title, description, children }: AdminShellProps) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,#dcfce7_0%,transparent_25%),linear-gradient(180deg,#f5fff8_0%,#ecfdf3_42%,#ffffff_100%)]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-4 rounded-[2rem] border border-emerald-200/80 bg-white/95 p-6 shadow-[0_24px_80px_-38px_rgba(22,101,52,0.22)] lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-500">
-              Admin Panel
+            <p className="text-sm font-medium uppercase tracking-[0.22em] text-emerald-700">
+              Genom Data Admin
             </p>
-            <h1 className="mt-2 text-3xl font-semibold text-slate-900">{title}</h1>
-            <p className="mt-2 max-w-2xl text-sm text-slate-600">{description}</p>
+            <h1 className="mt-2 text-3xl font-semibold text-emerald-950">{title}</h1>
+            <p className="mt-2 max-w-2xl text-sm text-emerald-900/70">{description}</p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
             disabled={isSigningOut}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-2xl border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-800 transition hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSigningOut ? "Signing out..." : "Sign Out"}
           </button>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-          <aside className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <aside className="rounded-[2rem] border border-emerald-200/80 bg-white/95 p-4 shadow-[0_20px_60px_-40px_rgba(22,101,52,0.25)]">
             <nav className="space-y-2">
               {links.map((link) => {
                 const isActive = pathname === link.href;
@@ -58,10 +59,10 @@ export function AdminShell({ title, description, children }: AdminShellProps) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
+                    className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${
                       isActive
-                        ? "bg-slate-900 text-white"
-                        : "text-slate-700 hover:bg-slate-100"
+                        ? "bg-emerald-700 text-white shadow-sm"
+                        : "text-emerald-900 hover:bg-emerald-50"
                     }`}
                   >
                     {link.label}

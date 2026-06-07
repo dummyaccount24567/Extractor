@@ -8,7 +8,7 @@ import { AdminDashboardClient } from "./settings-client";
 export default async function AdminPage() {
   if (!(await isAdminAuthenticated())) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+      <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_left,#dcfce7_0%,transparent_25%),linear-gradient(180deg,#f5fff8_0%,#ecfdf3_42%,#ffffff_100%)] px-4">
         <AdminPasswordForm />
       </main>
     );

@@ -7,12 +7,12 @@ type SearchBarProps = {
 
 export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div className="relative">
-      <label htmlFor="search" className="mb-2 block text-sm font-medium text-slate-700">
-        Search by trait, name, or species
-      </label>
+    <div className="space-y-3">
       <div className="relative">
-        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+        <label htmlFor="search" className="mb-2 block text-sm font-medium text-emerald-900">
+          Trait Search
+        </label>
+        <span className="pointer-events-none absolute left-4 top-[3.35rem] -translate-y-1/2 text-emerald-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -33,10 +33,13 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
           type="search"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="Search by trait, name, or species..."
-          className="w-full rounded-xl border border-slate-300 bg-white py-3 pl-12 pr-4 text-sm text-slate-900 transition focus:border-slate-500"
+          placeholder="Enter a trait to search records"
+          className="w-full rounded-2xl border border-emerald-200 bg-white py-3 pl-12 pr-4 text-sm text-emerald-950 shadow-sm outline-none transition focus:border-emerald-500"
         />
       </div>
+      <p className="text-sm text-emerald-800/80">
+        Results appear after a trait search.
+      </p>
     </div>
   );
 }

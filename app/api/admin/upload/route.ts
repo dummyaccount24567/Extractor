@@ -26,9 +26,18 @@ export async function POST(request: NextRequest) {
 
   try {
     const buffer = Buffer.from(await file.arrayBuffer());
-    const { rows, preview } = parseExcelBuffer(buffer);
+    const { rows } = parseExcelBuffer(buffer);
 
-    const names = rows.map((row) => row.name);
+    const currentMaxSerial = await prisma.germplasmEntry.aggregate({
+      _max: { serialNo: true },
+    });
+    const startingSerial = currentMaxSerial._max.serialNo ?? 0;
+    const rowsWithSerials = rows.map((row, index) => ({
+      ...row,
+      serialNo: startingSerial + index + 1,
+    }));
+
+    const names = rowsWithSerials.map((row) => row.name);
     const duplicateNamesInFile = new Set<string>();
     const seenInFile = new Set<string>();
 
@@ -45,7 +54,9 @@ export async function POST(request: NextRequest) {
     });
 
     const existingNames = new Set(existing.map((row) => row.name));
-    const uniqueRows = rows.filter((row) => !duplicateNamesInFile.has(row.name) && !existingNames.has(row.name));
+    const uniqueRows = rowsWithSerials.filter(
+      (row) => !duplicateNamesInFile.has(row.name) && !existingNames.has(row.name),
+    );
 
     let imported = 0;
 
@@ -58,8 +69,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       imported,
-      skipped: rows.length - imported,
-      preview,
+      skipped: rowsWithSerials.length - imported,
+      preview: uniqueRows.slice(0, 5),
       duplicateNames: [...new Set([...duplicateNamesInFile, ...existing.map((row) => row.name)])],
     });
   } catch (error) {

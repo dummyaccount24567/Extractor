@@ -72,17 +72,17 @@ npm run dev
 
 ## Excel Headers
 
-The upload parser detects these headers dynamically from row 1:
+The upload parser matches your current Excel row-1 headers:
 
 - `S.No`
-- `Name`
-- `Genome`
-- `Grin ID`
+- `Name/ID`
 - `Species`
 - `Type`
-- `Collection`
-- `Accession`
-- `Description`
+- `Key Descriptors`
+- `Parentage`
+- `Host Institution`
+
+Legacy labels such as `Name`, `Description`, `Traits`, `Collection`, and `Accession` are still accepted for compatibility.
 
 ## Notes
 
